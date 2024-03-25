@@ -2,9 +2,6 @@ import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
 import java.io.*;
 import java.util.*;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpExchange;
-import org.json.JSONObject;
 
 public class Server {
     int portnumber;
