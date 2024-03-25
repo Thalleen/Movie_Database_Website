@@ -15,10 +15,14 @@ public class Model {
         System.out.println("Fetching all models");
         HashMap<String, ArrayList<String>> ret = mongo_db.getall();
         // System.out.println("Finished fetching all models");
-        for (Map.Entry<String, ArrayList<String>> entry : ret.entrySet()) {
-            String key = entry.getKey();
-            ArrayList<String> values = entry.getValue();
-            System.out.println("Key" + key);
-        }
+        // for (Map.Entry<String, ArrayList<String>> entry : ret.entrySet()) {
+        //     String key = entry.getKey();
+        //     ArrayList<String> values = entry.getValue();
+        //     System.out.println("Key" + key);
+        // }
+    }
+
+    public void FetchOne(String movieName) {
+        getOne(movieName);
     }
 }

@@ -52,7 +52,7 @@ public class  Request {
         try {
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost(endpoint);
-            
+
             if (header != null) {
                 Iterator<String> keys = header.keys();
                 while (keys.hasNext()) {
@@ -74,12 +74,11 @@ public class  Request {
                 filename += contents;
                 filename += ":";
                 filename += data.get("Endpoints").toString();
-                
 
             } catch (Exception e) {
                 System.err.println("Failed to get 'filename' field from json object.");
             }
-            
+
             httpPost.setEntity(new StringEntity(filename));
             HttpResponse response = httpClient.execute(httpPost);
             HttpEntity entity = response.getEntity();
@@ -96,6 +95,40 @@ public class  Request {
         }
     }
 
+    public void post(String endpoint, String payload) {
+        try {
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            HttpPost httpPost = new HttpPost(endpoint);
+
+            if (header != null) {
+                Iterator<String> keys = header.keys();
+                while (keys.hasNext()) {
+                    String key = keys.next();
+                    try {
+                        Object value = this.header.get(key);
+                        httpPost.setHeader(key, value.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
+
+            httpPost.setEntity(new StringEntity(payload));
+            HttpResponse response = httpClient.execute(httpPost);
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                // Convert the response entity to a string
+                String responseBody = EntityUtils.toString(entity);
+                this.reply = responseBody;
+            } else {
+                this.reply = ("Empty response received from the server.");
+            }
+            httpClient.close();
+        } catch (IOException e) {
+            this.reply = ("Error occurred while making the HTTP POST request: " + e.getMessage());
+        }
+    }
     public String reply_in_text() {
         return this.reply.toString();
     }
