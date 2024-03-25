@@ -73,7 +73,10 @@ public class GridLayoutExample {
 
             panels[i].add(new JLabel(posters[i])); // Add poster image
             panels[i].add(posterNameLabel); // Add poster name, centered
-
+            MovieDetailsListener listener = new MovieDetailsListener(posterNames[i], 
+                                                              "// Optional: Set description here"
+                                                              );
+            panels[i].addMouseListener(listener); // Add listener to each panel
             // Tooltip for full title on hover (optional)
             panels[i].setToolTipText(posterNames[i]);
         }
