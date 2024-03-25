@@ -51,4 +51,18 @@ public class Model {
             System.out.println("Key" + key);
         }
     }
+
+    public void writeMovie(String movie,String rating, String year) throws Exception{
+        try {
+            JSONObject obj = new JSONObject();
+            obj.put("Movie", movie);
+            obj.put("Rating", rating);
+            obj.put("ReleaseYear", year);
+            mongo_db.writeMovie(obj);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Exeception in writing ");
+        }
+
+    }
 }
