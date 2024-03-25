@@ -1,28 +1,54 @@
+
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.MongoException;
+import com.mongodb.ServerApi;
+import com.mongodb.ServerApiVersion;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+import com.mongodb.client.FindIterable;
+import java.io.*;
+import java.net.InetSocketAddress;
+import java.net.SocketOption;
 import java.util.*;
+import com.sun.net.httpserver.HttpServer;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpExchange;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Model {
     String DatabaseName;
     String CollectionName;
     Mongo_db mongo_db = new Mongo_db();
 
+
     Model(String DatabaseName, String CollectionName) {
         this.DatabaseName = DatabaseName;
         this.CollectionName = CollectionName;
         mongo_db.connect();
     }
-
+    
     public void FetchAll() {
-        System.out.println("Fetching all models");
+        
         HashMap<String, ArrayList<String>> ret = mongo_db.getall();
-        // System.out.println("Finished fetching all models");
-        // for (Map.Entry<String, ArrayList<String>> entry : ret.entrySet()) {
-        //     String key = entry.getKey();
-        //     ArrayList<String> values = entry.getValue();
-        //     System.out.println("Key" + key);
-        // }
+        for (Map.Entry<String, ArrayList<String>> entry : ret.entrySet()) {
+            String key = entry.getKey();
+            ArrayList<String> values = entry.getValue();
+            System.out.println("Key" + key);
+        }
     }
 
-    public void FetchOne(String movieName) {
-        getOne(movieName);
+    public void fetchOne(String movie){
+        HashMap<String, ArrayList<String>> ret = mongo_db.getone(movie);
+        for (Map.Entry<String, ArrayList<String>> entry : ret.entrySet()) {
+            String key = entry.getKey();
+            ArrayList<String> values = entry.getValue();
+            System.out.println("Key" + key);
+        }
     }
 }

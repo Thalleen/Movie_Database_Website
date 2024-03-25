@@ -10,6 +10,7 @@ import com.mongodb.client.FindIterable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.bson.Document;
+import org.json.JSONObject;
 
 public class Mongo_db {
     String connectionString;
@@ -62,6 +63,37 @@ public class Mongo_db {
             
         }
         return details;
+    }
+
+    HashMap<String, ArrayList<String>> getone(String movie){
+        FindIterable<Document> iterDoc = collection.find();
+        System.out.println("Retrieved");
+        HashMap<String,ArrayList<String>>details=new HashMap<>();
+        for(Document doc:iterDoc){
+            String id=doc.get("_id").toString();
+            String title=doc.get("Title").toString();
+            String genre=doc.get("Genre").toString();
+            String year=doc.get("ReleaseYear").toString();
+            String rating=doc.get("Rating").toString();
+
+
+            if(title.equals(movie)){
+                ArrayList<String>temp=new ArrayList<>();
+                temp.add(title);
+                temp.add(genre);
+                temp.add(year);
+                temp.add(rating);
+                details.put(id, temp);
+            }
+            
+        }
+        return details;
+    }
+
+
+    void writeMovie(JSONObject json){
+        Document document=new Document();
+        
     }
 
 
