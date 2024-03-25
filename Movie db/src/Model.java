@@ -21,6 +21,23 @@ import com.sun.net.httpserver.HttpExchange;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Model{
-    
+public class Model {
+    String DatabaseName;
+    String CollectionName;
+    Mongo_db mongo_db = new Mongo_db();
+
+    Model(String DatabaseName, String CollectionName) {
+        this.DatabaseName = DatabaseName;
+        this.CollectionName = CollectionName;
+        mongo_db.connect();
+    }
+
+    public void FetchAll() {
+        HashMap<String, ArrayList<String>> ret = mongo_db.getall();
+        for (Map.Entry<String, ArrayList<String>> entry : ret.entrySet()) {
+            String key = entry.getKey();
+            ArrayList<String> values = entry.getValue();
+            System.out.println("Key" + key);
+        }
+    }
 }
