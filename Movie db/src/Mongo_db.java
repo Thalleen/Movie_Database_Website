@@ -21,7 +21,7 @@ public class Mongo_db {
     MongoClient mongoClient;
 
     Mongo_db() {
-        this.connectionString = "mongodb+srv://Sumukh:sumukh@cluster0.cpudzkw.mongodb.net/?retryWrites=true&w=majority";
+        this.connectionString = "YOUR_STRING_HERE";
         this.serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
